@@ -17,16 +17,6 @@ module.exports = function(grunt) {
                     {src: ['bower.json'], dest: 'package/', filter: 'isFile'},
                     {src: ['.bowerrc'], dest: 'package/', filter: 'isFile'}
                 ]
-            },
-            buildOutputAsPackage: { // used when deploying locally to vagrant
-                files: [
-                    {
-                        expand: true,
-                        cwd: "package/",
-                        src: ["**"],
-                        dest: "temp/package"
-                    }
-                ]
             }
         },
 
@@ -62,13 +52,13 @@ module.exports = function(grunt) {
                 'server/**/*.js',
                 'client/**/*.js',
                 '!client/public/**/*.js',
-                '!client/js/common/lib/**/*.js',
+                '!client/js/common/lib/**/*.js'
             ]
         },
 
        simplemocha: {
           test: {
-            src: ['server/tests/**/*.js'],
+            src: ['server/tests/**/*.js']
           }
         }
     });

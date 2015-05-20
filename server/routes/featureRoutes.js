@@ -13,7 +13,7 @@ var getFeatureCategories = function(req, res){
         });
 };
 
-var getFeature = function(req, res) {
+var getFeature = function(req, res){
     var applicationName = req.params.applicationName;
     var featureName = req.params.featureName;
 
@@ -30,11 +30,23 @@ var getFeature = function(req, res) {
 var addFeature = function(req, res){
     var applicationName = req.params.applicationName;
     var featureName = req.body.featureName;
+    var featureDescription = req.body.featureDescription;
     var categoryId = req.body.categoryId;
 
-    feature.addFeature(applicationName, featureName, categoryId, req, function(err){
+    feature.addFeature(applicationName, featureName, featureDescription, categoryId, req, function(err){
         if (err) throw err;
         res.send(201);
+    });
+};
+
+var updateFeatureDescription = function(req, res){
+    var applicationName = req.params.applicationName;
+    var featureName = req.params.featureName;
+    var newFeatureDescription = req.body.newFeatureDescription;
+
+    feature.updateFeatureDescription(applicationName, featureName, newFeatureDescription, req, function(err){
+        if (err) throw err;
+        res.send(200);
     });
 };
 
@@ -88,6 +100,7 @@ module.exports.registerRoutes = function(app, authenticate, authorise){
     app.get('/api/applications/:applicationName/:featureName', getFeature);
     app.post('/api/applications/:applicationName', authenticate, authorise, addFeature);
     app.put('/api/applications/:applicationName/:featureName', authenticate, authorise, updateFeatureToggle);
+    app.patch('/api/applications/:applicationName/:featureName', authenticate, authorise, updateFeatureDescription);
     app.post('/api/applications/:applicationName/:featureName', authenticate, authorise, addFeatureToggle);
     app.put('/api/applications/:applicationName/:featureName/:toggleName', authenticate, authorise, updateFeatureMultiToggle);
     app.delete('/api/applications/:applicationName/:featureName', authenticate, authorise, deleteFeature);

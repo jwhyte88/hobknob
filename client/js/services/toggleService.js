@@ -25,9 +25,9 @@ angular.module('featureToggleFrontend').factory('toggleService', ['ENV', '$http'
             });
     };
 
-    exports.addFeature = function (applicationName, categoryId, featureName, success, error) {
+    exports.addFeature = function (applicationName, categoryId, featureName, featureDescription, success, error) {
         var path = '/api/applications/' + applicationName;
-        $http.post(path, { featureName: featureName, categoryId: categoryId})
+        $http.post(path, { featureName: featureName, featureDescription: featureDescription, categoryId: categoryId})
             .success(function(data, status){
                 success(status);
             })
@@ -50,6 +50,17 @@ angular.module('featureToggleFrontend').factory('toggleService', ['ENV', '$http'
     exports.updateFeatureToggle = function (applicationName, featureName, isMultiToggle, toggleName, value, success, error) {
         var path = '/api/applications/' + applicationName + '/' + featureName + (isMultiToggle ? '/' + toggleName : '');
         $http.put(path, { value: value })
+            .success(function(data, status){
+                if (success) success(status);
+            })
+            .error(function(data){
+                if (error) error(data);
+            });
+    };
+
+    exports.updateFeatureDescription = function(applicationName, featureName, newFeatureDescription, success, error) {
+        var path = '/api/applications/' + applicationName + '/' + featureName;
+        $http({method: 'PATCH', url: path, data: { newFeatureDescription: newFeatureDescription }})
             .success(function(data, status){
                 if (success) success(status);
             })

@@ -1,6 +1,6 @@
 {
   "name": "hobknob",
-  "version": "2.2.1",
+  "version": "2.2.4",
   "description": "Front end for managing feature toggles in etcd",
   "scripts": {
     "prestart": "bower cache clean --config.interactive=false && bower install --config.interactive=false",
@@ -37,8 +37,8 @@
     "forever-monitor": "~1.2.3",
     "grunt": "~0.4.2",
     "matchdep": "~0.3.0",
-    "grunt-cli": "~0.1.13",
     "shelljs": "~0.2.6",
+    "grunt-cli": "~0.1.13",
     "grunt-contrib-copy": "~0.5.0",
     "grunt-ng-constant": "^0.5.0",
     "node-etcd": "^2.1.1",
